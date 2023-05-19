@@ -6,6 +6,10 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
+#define xPAD 2
+#define YPAD 0
+
+
 class ssd1306_btn {
     public:
         bool sbtnState;
@@ -14,6 +18,8 @@ class ssd1306_btn {
         int sbtnHeight;
         int sbtnX;
         int sbtnY;
+        int sbtnTxtX;
+        int sbtnTxtY;
         String sbtnText;
         Adafruit_SSD1306 *sbtnDisplay;
 
@@ -22,6 +28,8 @@ class ssd1306_btn {
 
         void enable();
         void disable();
+
+        void renderText();
 
         void render();
         void render(bool nState);

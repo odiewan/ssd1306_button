@@ -15,6 +15,8 @@ void ssd1306_btn::constructorCore() {
     sbtnHeight = 8;
     sbtnX = 0;
     sbtnY = 0;
+    sbtnTxtX = sbtnX + xPAD;
+    sbtnTxtY = sbtnY + YPAD;
     sbtnText = "btnText";
 }
 
@@ -34,6 +36,8 @@ ssd1306_btn::ssd1306_btn(Adafruit_SSD1306 *nDsp, int nX, int nY, int nH, int nW,
     sbtnHeight = nH;
     sbtnX = nX;
     sbtnY = nY;
+    sbtnTxtX = sbtnX + xPAD;
+    sbtnTxtY = sbtnY + YPAD;
     sbtnText = nText;
 }
 
@@ -58,24 +62,32 @@ void ssd1306_btn::render(bool nState) {
 }
 
 //=================================================================================================
-void ssd1306_btn::render(String nText, bool nState) {
+void ssd1306_btn::renderText() {
+    sbtnDisplay->print("*" + sbtnText + "*");
+}
+
+
+//=================================================================================================
+void ssd1306_btn::render(String nText, bool nState)
+{
     sbtnState = nState;
     sbtnText = nText;
 
-    if(sbtnEnable) {
+    if (sbtnEnable)
+    {
         if (sbtnState)
         {
-            sbtnDisplay->fillRect(sbtnX, sbtnY, sbtnDisplay->width() - 1, sbtnHeight, SSD1306_WHITE);
+            sbtnDisplay->fillRect(sbtnX, sbtnY, sbtnWidth, sbtnHeight, SSD1306_WHITE);
             sbtnDisplay->setTextColor(SSD1306_INVERSE); // Draw white text
-            sbtnDisplay->setCursor(sbtnX, sbtnY);       // Start at top-left corner
-            sbtnDisplay->print(nText);
+            sbtnDisplay->setCursor(sbtnTxtX, sbtnY);       // Start at top-left corner
+            renderText();
         }
         else
         {
-            sbtnDisplay->drawRect(sbtnX, sbtnY, sbtnDisplay->width() - 1, sbtnHeight, SSD1306_WHITE);
+            sbtnDisplay->drawRect(sbtnX, sbtnY, sbtnWidth, sbtnHeight, SSD1306_WHITE);
             sbtnDisplay->setTextColor(SSD1306_WHITE); // Draw white text
-            sbtnDisplay->setCursor(sbtnX, sbtnY);         // Start at top-left corner
-            sbtnDisplay->print(nText);
+            sbtnDisplay->setCursor(sbtnTxtX, sbtnY);     // Start at top-left corner
+            renderText();
         }
     }
 }
