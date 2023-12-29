@@ -50,6 +50,7 @@ class ssd1306_btn {
 
         void render();
         void render(bool nState);
+        void renderNoText(bool nState);
         void render(String nText, bool nState);
 
     private:

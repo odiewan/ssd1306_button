@@ -97,6 +97,21 @@ void ssd1306_btn::render(bool nState) {
 }
 
 //=================================================================================================
+void ssd1306_btn::renderNoText(bool nState) {
+  sbtnState = nState;
+
+  if (sbtnEnable) {
+    if (sbtnState) {
+      sbtnDisplay->fillRect(sbtnX, sbtnY, sbtnWidth, sbtnHeight, sbtnTextColor);
+    } else {
+      sbtnDisplay->fillRect(sbtnX, sbtnY, sbtnWidth, sbtnHeight, sbtnBGColor);
+    }
+    sbtnDisplay->drawRect(sbtnX, sbtnY, sbtnWidth, sbtnHeight, sbtnBGColor);
+  }
+}
+
+
+//=================================================================================================
 void ssd1306_btn::renderText() {
     sbtnDisplay->print(sbtnText);
 }
